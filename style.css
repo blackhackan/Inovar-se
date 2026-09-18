@@ -5,20 +5,21 @@
   /* Fundo Principal: Azul Marinho Escuro */
   --color-bg: #0A1128;
 
-  /* Card de Formulário (E-mail e Senha): Laranja */
-  --color-card-bg: #EA580C;
-  --color-card-border: #C2410C;
+  /* Card de Formulário: Laranja Suave / Pastel */
+  --color-card-bg: #FFEDD5;
+  --color-card-border: #FED7AA;
 
-  /* Botão Entrar / CTA: Verde */
+  /* Botão CTA: Verde */
   --color-cta: #10B981;
   --color-cta-hover: #059669;
 
-  /* Cor Primária / Navbar: Azul Marinho Médio */
+  /* Cor Primária / Navbar / Sidebar: Azul Marinho Médio */
   --color-primary: #1E293B;
+  --color-sidebar-bg: #0F172A;
 
   /* Cores de Texto e Campos */
-  --color-text-light: #FFFFFF;
-  --color-text-dark: #1E293B;
+  --color-text-main: #1E293B;
+  --color-text-muted: #7C2D12;
   --color-input-bg: #FFFFFF;
   --color-input-border: #FDBA74;
 
@@ -37,7 +38,7 @@
 
 body {
   background-color: var(--color-bg);
-  color: var(--color-text-light);
+  color: #FFFFFF;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   min-height: 100vh;
   display: flex;
@@ -51,7 +52,7 @@ body {
 }
 
 /* ==========================================================================
-   TELA DE AUTENTICAÇÃO (CARD LARANJA)
+   TELA DE AUTENTICAÇÃO
    ========================================================================== */
 .auth-card {
   background-color: var(--color-card-bg);
@@ -65,33 +66,44 @@ body {
 
 .auth-header {
   text-align: center;
-  margin-bottom: 2rem;
-}
-
-.badge-simulation {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 600;
-  background-color: rgba(255, 255, 255, 0.2);
-  color: #FFFFFF;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .brand-title {
   font-size: 2rem;
   font-weight: 800;
-  color: #FFFFFF;
+  color: #9A3412;
 }
 
 .auth-subtitle {
-  color: #FFEDD5;
+  color: var(--color-text-muted);
   font-size: 0.875rem;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
 }
 
-/* Campos de E-mail e Senha */
+/* Feedback */
+.feedback-message {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.feedback-message.error {
+  background-color: #FEE2E2;
+  color: #991B1B;
+  border: 1px solid #FCA5A5;
+}
+
+.feedback-message.success {
+  background-color: #D1FAE5;
+  color: #065F46;
+  border: 1px solid #6EE7B7;
+}
+
+/* Campos */
 .form-group {
   margin-bottom: 1rem;
 }
@@ -100,7 +112,7 @@ body {
   display: block;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--color-text-main);
   margin-bottom: 0.375rem;
 }
 
@@ -125,17 +137,17 @@ body {
   border-radius: 0.5rem;
   padding: 0.625rem 0.75rem 0.625rem 2.5rem;
   font-size: 0.875rem;
-  color: var(--color-text-dark);
+  color: var(--color-text-main);
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #FFFFFF;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+  border-color: #EA580C;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.2);
 }
 
-/* Botão Entrar (Verde) */
+/* Botão Verde */
 .btn-cta {
   width: 100%;
   margin-top: 0.5rem;
@@ -159,18 +171,18 @@ body {
   background-color: var(--color-cta-hover);
 }
 
-/* Alternador de Modo */
+/* Alternador */
 .toggle-wrapper {
   margin-top: 1.5rem;
   text-align: center;
   font-size: 0.75rem;
-  color: #FFEDD5;
+  color: var(--color-text-muted);
 }
 
 .btn-toggle {
   background: none;
   border: none;
-  color: #FFFFFF;
+  color: #C2410C;
   font-weight: 700;
   cursor: pointer;
   margin-left: 0.25rem;
@@ -178,7 +190,7 @@ body {
 }
 
 /* ==========================================================================
-   TELA DE DASHBOARD
+   TELA DE DASHBOARD COM MENU LATERAL
    ========================================================================== */
 .dashboard-screen {
   position: fixed;
@@ -187,16 +199,17 @@ body {
   display: flex;
   flex-direction: column;
   z-index: 50;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .navbar {
   background-color: var(--color-primary);
   color: #FFFFFF;
-  padding: 1rem 1.5rem;
+  padding: 0.875rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-b: 1px solid #334155;
 }
 
 .navbar-brand {
@@ -239,12 +252,76 @@ body {
   border-color: var(--color-danger);
 }
 
+/* Layout Flexível (Sidebar + Main) */
+.dashboard-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Menu Lateral (Sidebar) */
+.sidebar {
+  width: 240px;
+  background-color: var(--color-sidebar-bg);
+  border-right: 1px solid #1E293B;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sidebar-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94A3B8;
+  padding-left: 0.75rem;
+}
+
+.subjects-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.subject-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.5rem;
+  background: none;
+  border: none;
+  color: #CBD5E1;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.subject-btn:hover {
+  background-color: #1E293B;
+  color: #FFFFFF;
+}
+
+.subject-btn.active {
+  background-color: #EA580C;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.subject-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* Área de Conteúdo Central */
 .dashboard-content {
   flex: 1;
   padding: 1.5rem;
-  max-width: 1024px;
-  margin: 0 auto;
-  width: 100%;
+  overflow-y: auto;
+  max-width: 1000px;
 }
 
 .welcome-card {
@@ -252,18 +329,30 @@ body {
   border: 1px solid var(--color-card-border);
   border-radius: 1rem;
   padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  color: #FFFFFF;
+  margin-bottom: 1.25rem;
+  color: var(--color-text-main);
 }
 
 .welcome-card h2 {
   font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.375rem;
+  color: #9A3412;
 }
 
 .welcome-card p {
-  color: #FFEDD5;
+  color: var(--color-text-muted);
   font-size: 0.875rem;
+}
+
+.subject-header-badge {
+  background-color: #1E293B;
+  border: 1px solid #334155;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #FDBA74;
+  margin-bottom: 1.5rem;
 }
 
 .metrics-grid {
@@ -317,4 +406,25 @@ body {
   font-size: 1.25rem;
   font-weight: 700;
   color: #FFFFFF;
+}
+
+/* Ajuste Responsivo para Telas Menores */
+@media (max-width: 640px) {
+  .dashboard-layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #1E293B;
+    padding: 1rem;
+  }
+  .subjects-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+  .subject-btn {
+    white-space: nowrap;
+  }
 }

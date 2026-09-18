@@ -4,12 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EduAdapt - Plataforma Educacional</title>
-  
-  <!-- CSS Personalizado -->
   <link rel="stylesheet" href="style.css" />
-  
-  <!-- Lucide Icons (Biblioteca de Ícones) -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
 
@@ -17,18 +13,20 @@
   <div id="auth-card" class="auth-card">
     
     <div class="auth-header">
-      <span class="badge-simulation">Simulação Front-End</span>
       <h1 class="brand-title">EduAdapt</h1>
       <p id="auth-subtitle" class="auth-subtitle">Acesse sua conta para continuar</p>
     </div>
+
+    <!-- Feedback Mensagens -->
+    <div id="feedback-message" class="feedback-message hidden"></div>
 
     <form id="auth-form" onsubmit="handleAuthSubmit(event)">
       
       <!-- Campo Nome Completo (Oculto no Login) -->
       <div id="group-name" class="form-group hidden">
-        <label class="form-label">Nome Completo</label>
+        <label class="form-label" for="input-name">Nome Completo</label>
         <div class="input-wrapper">
-          <i data-lucide="user" class="input-icon"></i>
+          <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           <input
             type="text"
             id="input-name"
@@ -40,9 +38,9 @@
 
       <!-- Campo E-mail -->
       <div class="form-group">
-        <label class="form-label">E-mail</label>
+        <label class="form-label" for="input-email">E-mail</label>
         <div class="input-wrapper">
-          <i data-lucide="mail" class="input-icon"></i>
+          <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           <input
             type="email"
             id="input-email"
@@ -56,9 +54,9 @@
 
       <!-- Campo Senha -->
       <div class="form-group">
-        <label class="form-label">Senha</label>
+        <label class="form-label" for="input-password">Senha</label>
         <div class="input-wrapper">
-          <i data-lucide="lock" class="input-icon"></i>
+          <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <input
             type="password"
             id="input-password"
@@ -70,10 +68,10 @@
         </div>
       </div>
 
-      <!-- Botão de Ação CTA -->
+      <!-- Botão Entrar -->
       <button type="submit" class="btn-cta">
-        <span id="btn-submit-text">Simular Entrar</span>
-        <i data-lucide="arrow-right" style="width: 1rem; height: 1rem;"></i>
+        <span id="btn-submit-text">Entrar</span>
+        <svg style="width: 1rem; height: 1rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </button>
     </form>
 
@@ -86,9 +84,10 @@
   </div>
 
 
-  <!-- ================= TELA DE DASHBOARD ================= -->
+  <!-- ================= TELA DE DASHBOARD COM MENU LATERAL ================= -->
   <div id="dashboard-screen" class="dashboard-screen hidden">
-    <!-- Navbar -->
+    
+    <!-- Navbar Superior -->
     <header class="navbar">
       <div class="navbar-brand">
         <div class="brand-badge">EduAdapt</div>
@@ -96,54 +95,102 @@
       <div class="navbar-user">
         <span id="user-display-name" style="font-size: 0.875rem; font-weight: 500;">Estudante</span>
         <button onclick="logout()" class="btn-logout">
-          <i data-lucide="log-out" style="width: 0.875rem; height: 0.875rem;"></i>
+          <svg style="width: 0.875rem; height: 0.875rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
           <span>Sair</span>
         </button>
       </div>
     </header>
 
-    <!-- Conteúdo Principal -->
-    <main class="dashboard-content">
-      <div class="welcome-card">
-        <h2 id="welcome-heading">Bem-vindo(a)!</h2>
-        <p>Este é o seu painel de aprendizado na plataforma EduAdapt.</p>
-      </div>
+    <!-- Layout Principal: Sidebar + Conteúdo -->
+    <div class="dashboard-layout">
+      
+      <!-- Menu Lateral de Matérias -->
+      <aside class="sidebar">
+        <h3 class="sidebar-title">Matérias</h3>
+        <nav class="subjects-nav">
+          <button class="subject-btn active" onclick="selectSubject('Matemática')">
+            <svg class="subject-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+            <span>Matemática</span>
+          </button>
 
-      <div class="metrics-grid">
-        <div class="metric-card">
-          <div class="metric-icon blue">
-            <i data-lucide="book-open"></i>
-          </div>
-          <div>
-            <p class="metric-title">Módulos Concluídos</p>
-            <p class="metric-value">4 / 12</p>
-          </div>
+          <button class="subject-btn" onclick="selectSubject('Português')">
+            <svg class="subject-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+            <span>Português</span>
+          </button>
+
+          <button class="subject-btn" onclick="selectSubject('História')">
+            <svg class="subject-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>História</span>
+          </button>
+
+          <button class="subject-btn" onclick="selectSubject('Geografia')">
+            <svg class="subject-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            <span>Geografia</span>
+          </button>
+
+          <button class="subject-btn" onclick="selectSubject('Inglês')">
+            <svg class="subject-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+            <span>Inglês</span>
+          </button>
+
+          <button class="subject-btn" onclick="selectSubject('Física')">
+            <svg class="subject-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>Física</span>
+          </button>
+
+          <button class="subject-btn" onclick="selectSubject('Química')">
+            <svg class="subject-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/></svg>
+            <span>Química</span>
+          </button>
+        </nav>
+      </aside>
+
+      <!-- Área de Conteúdo Central -->
+      <main class="dashboard-content">
+        <div class="welcome-card">
+          <h2 id="welcome-heading">Bem-vindo(a)!</h2>
+          <p id="welcome-message">Selecione uma matéria no menu ao lado para iniciar seus estudos.</p>
         </div>
 
-        <div class="metric-card">
-          <div class="metric-icon green">
-            <i data-lucide="trophy"></i>
-          </div>
-          <div>
-            <p class="metric-title">Pontuação Total</p>
-            <p class="metric-value">1.250 pts</p>
-          </div>
+        <div class="subject-header-badge">
+          <span id="selected-subject-title">Matéria Selecionada: Matemática</span>
         </div>
 
-        <div class="metric-card">
-          <div class="metric-icon orange">
-            <i data-lucide="layout-dashboard"></i>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon blue">
+              <svg style="width: 1.5rem; height: 1.5rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <div>
+              <p class="metric-title">Módulos Concluídos</p>
+              <p class="metric-value">4 / 12</p>
+            </div>
           </div>
-          <div>
-            <p class="metric-title">Nível Atual</p>
-            <p class="metric-value">Intermediário</p>
+
+          <div class="metric-card">
+            <div class="metric-icon green">
+              <svg style="width: 1.5rem; height: 1.5rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            </div>
+            <div>
+              <p class="metric-title">Pontuação Total</p>
+              <p class="metric-value">1.250 pts</p>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon orange">
+              <svg style="width: 1.5rem; height: 1.5rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+            </div>
+            <div>
+              <p class="metric-title">Nível Atual</p>
+              <p class="metric-value">Intermediário</p>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+
+    </div>
   </div>
 
-  <!-- JavaScript Personalizado -->
-  <script src="script.js"></script>
 </body>
 </html>
