@@ -3,51 +3,134 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Educação Adaptável - Plataforma Educacional Inclusiva</title>
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              green: '#2e7d32',
-              greenLight: '#e8f5e9',
-              greenDark: '#1b5e20',
-              orangeSoft: '#fff3e0',
-              orangeAccent: '#f57c00',
-              blueSoft: '#e3f2fd',
-              blueAccent: '#0288d1',
-              surface: '#f8fafc',
-            }
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Google Fonts & OpenDyslexic -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic.css">
-
-  <!-- Estilos Customizados Separados -->
-  <link rel="stylesheet" href="styles.css">
-
-  <!-- React & Babel CDNs -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>EduEstudos - Plataforma Escolar</title>
+  <link rel="stylesheet" href="./styles.css">
 </head>
-<body class="bg-brand-surface text-slate-800 antialiased selection:bg-brand-greenLight selection:text-brand-greenDark">
+<body>
 
-  <!-- Ponto de Montagem da Aplicação React -->
-  <div id="root"></div>
+  <!-- TELA DE AUTENTICAÇÃO -->
+  <div id="authScreen" class="auth-container">
+    <div class="auth-card">
+      <div class="logo">EA</div>
+      <h2>Plataforma EduEstudos</h2>
+      <p>Conteúdos do 6º Ano Fundamental ao 3º Ano Médio</p>
 
-  <!-- Lógica React/JS Separada -->
-  <script type="text/babel" src="app.js"></script>
+      <form id="authForm">
+        <div class="form-group">
+          <label>Nome Completo</label>
+          <input type="text" id="authNome" value="Alex Silva" required>
+        </div>
+
+        <div class="form-group">
+          <label>E-mail</label>
+          <input type="email" id="authEmail" value="alex@estudante.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>Senha</label>
+          <input type="password" id="authSenha" value="123456" required>
+        </div>
+
+        <div class="form-group">
+          <label>Ano Escolar Atual</label>
+          <select id="authAno">
+            <option value="6ef">6º Ano - Fundamental II</option>
+            <option value="7ef">7º Ano - Fundamental II</option>
+            <option value="8ef">8º Ano - Fundamental II</option>
+            <option value="9ef">9º Ano - Fundamental II</option>
+            <option value="1em">1º Ano - Ensino Médio</option>
+            <option value="2em">2º Ano - Ensino Médio</option>
+            <option value="3em">3º Ano - Ensino Médio / ENEM</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary">Entrar no Portal</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- PLATAFORMA PRINCIPAL -->
+  <div id="appScreen" class="app-container hidden">
+    
+    <!-- Cabeçalho -->
+    <header class="header">
+      <div class="brand">
+        <div class="logo-sm">EA</div>
+        <div>
+          <h3>EduEstudos</h3>
+          <span id="userInfo" class="user-badge">Estudante</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <select id="headerAnoSelect" onchange="trocarAnoEscolar(this.value)">
+          <option value="6ef">6º Ano EF</option>
+          <option value="7ef">7º Ano EF</option>
+          <option value="8ef">8º Ano EF</option>
+          <option value="9ef">9º Ano EF</option>
+          <option value="1em">1º Ano EM</option>
+          <option value="2em">2º Ano EM</option>
+          <option value="3em">3º Ano EM / ENEM</option>
+        </select>
+        <button onclick="logout()" class="btn-danger">Sair</button>
+      </div>
+    </header>
+
+    <div class="main-layout">
+      <!-- Navegação Lateral -->
+      <aside class="sidebar">
+        <nav class="menu">
+          <button onclick="carregarListaAulas()" class="menu-item active">📚 Todas as Aulas</button>
+        </nav>
+
+        <div class="progress-box">
+          <h4>Progresso</h4>
+          <p id="progressoTexto">0 Aulas Concluídas</p>
+        </div>
+      </aside>
+
+      <!-- Área de Conteúdo -->
+      <main class="content">
+        <!-- Filtro de Matérias -->
+        <div class="materias-bar" id="materiasBar">
+          <button onclick="filtrarMateria('matematica')" class="materia-btn">🔢 Matemática</button>
+          <button onclick="filtrarMateria('portugues')" class="materia-btn">📚 Português</button>
+          <button onclick="filtrarMateria('historia')" class="materia-btn">🏛️ História</button>
+          <button onclick="filtrarMateria('geografia')" class="materia-btn">🌍 Geografia</button>
+          <button onclick="filtrarMateria('fisica')" class="materia-btn">⚡ Física</button>
+          <button onclick="filtrarMateria('quimica')" class="materia-btn">🧪 Química</button>
+        </div>
+
+        <!-- Lista de Aulas -->
+        <div id="listaAulasView" class="aulas-grid"></div>
+
+        <!-- Visualizador de Aula Individual -->
+        <div id="aulaDetalheView" class="aula-card hidden">
+          <button onclick="fecharAula()" class="btn-back">← Voltar para as aulas</button>
+          <h2 id="aulaTitulo"></h2>
+          <span id="aulaTempo" class="badge"></span>
+
+          <div class="box-resumo">
+            <h4>Resumo Rápido</h4>
+            <p id="aulaResumo"></p>
+          </div>
+
+          <div class="box-teoria">
+            <h4>Teoria Completa</h4>
+            <p id="aulaTeoria"></p>
+          </div>
+
+          <div id="boxExercicio" class="box-exercicio hidden">
+            <h4>Exercício de Aplicação</h4>
+            <p id="exercicioPergunta"></p>
+            <div id="exercicioOpcoes" class="opcoes-list"></div>
+            <div id="exercicioResultado" class="resultado-box hidden"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
 </body>
 </html>

@@ -1,60 +1,247 @@
-/* Customização do Projeto Educação Adaptável */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: #f8fafc;
+  background-color: #0f172a;
+  color: #334155;
 }
 
-/* Fonte para Acessibilidade / Dislexia */
-.font-dyslexic {
-  font-family: 'OpenDyslexic', sans-serif !important;
+.hidden { display: none !important; }
+
+/* AUTH */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-/* Modo Calma Visual / TDAH */
-.sensory-mode {
-  letter-spacing: 0.04em;
-  line-height: 1.8;
+.auth-card {
+  background: #1e293b;
+  color: #f8fafc;
+  padding: 30px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-.sensory-mode * {
-  animation: none !important;
-  transition: none !important;
-  box-shadow: none !important;
+.logo {
+  background: #2563eb;
+  color: white;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
 }
 
-/* Scrollbar Customizada com Cores Suaves */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #94a3b8;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #c8e6c9;
-  border-radius: 4px;
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: white;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #81c784;
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-/* Suporte para Transições do Modo Alto Contraste */
-.high-contrast-mode {
-  background-color: #0d1117 !important;
-  color: #ffe082 !important;
+/* MAIN APP */
+.app-container {
+  min-height: 100vh;
+  background: #f8fafc;
 }
 
-.high-contrast-mode div,
-.high-contrast-mode header,
-.high-contrast-mode aside,
-.high-contrast-mode main,
-.high-contrast-mode button,
-.high-contrast-mode input,
-.high-contrast-mode select {
-  border-color: #ffe082 !important;
-  background-color: #161b22 !important;
-  color: #ffe082 !important;
+.header {
+  background: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-sm {
+  background: #2563eb;
+  color: white;
+  padding: 8px 12px;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.user-badge {
+  font-size: 11px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-danger {
+  padding: 8px 15px;
+  background: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.main-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  max-width: 1200px;
+  margin: 30px auto;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.menu-item {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: white;
+  border-radius: 12px;
+  text-align: left;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid #e2e8f0;
+}
+
+.progress-box {
+  background: #1e293b;
+  color: white;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.materias-bar {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.materia-btn {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.aulas-grid {
+  display: grid;
+  gap: 15px;
+}
+
+.aula-item {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.aula-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.box-resumo, .box-teoria, .box-exercicio {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.box-resumo { background: #eff6ff; border-left: 4px solid #2563eb; }
+.box-teoria { background: #f8fafc; border: 1px solid #e2e8f0; }
+.box-exercicio { background: white; border: 1px solid #cbd5e1; }
+
+.opcoes-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.opcao-btn {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  text-align: left;
+  cursor: pointer;
+}
+
+.resultado-box {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
 }
