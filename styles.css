@@ -1,0 +1,60 @@
+/* Customização do Projeto Educação Adaptável */
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #f8fafc;
+}
+
+/* Fonte para Acessibilidade / Dislexia */
+.font-dyslexic {
+  font-family: 'OpenDyslexic', sans-serif !important;
+}
+
+/* Modo Calma Visual / TDAH */
+.sensory-mode {
+  letter-spacing: 0.04em;
+  line-height: 1.8;
+}
+
+.sensory-mode * {
+  animation: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+}
+
+/* Scrollbar Customizada com Cores Suaves */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c8e6c9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #81c784;
+}
+
+/* Suporte para Transições do Modo Alto Contraste */
+.high-contrast-mode {
+  background-color: #0d1117 !important;
+  color: #ffe082 !important;
+}
+
+.high-contrast-mode div,
+.high-contrast-mode header,
+.high-contrast-mode aside,
+.high-contrast-mode main,
+.high-contrast-mode button,
+.high-contrast-mode input,
+.high-contrast-mode select {
+  border-color: #ffe082 !important;
+  background-color: #161b22 !important;
+  color: #ffe082 !important;
+}
